@@ -1,0 +1,115 @@
+body {
+    background-color: #333333;
+    color: #cfcfcf;
+    margin: 25px;
+    font-family: 'Avenir LT W01 45 Book',Verdana,Arial,Helvetica,sans-serif;
+}
+
+h1, h2, h3{
+    font-family: 'Avenir LT W01 45 Book',Verdana,Arial,Helvetica,sans-serif;
+}
+
+button {
+    font-weight: bolder;
+    height: 35px;
+    margin: 0;
+    vertical-align: bottom;
+}
+
+.login-center button {
+}
+
+input {
+    height: 35px;
+    padding: 5px;
+}
+
+label { 
+    height: 35px;
+    padding-right: 15px;
+    font-weight:bolder;
+ }
+.login-center
+{
+    position: absolute;
+    margin: auto;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 400px;
+    height: 400px;
+    background-color: #555;
+    border-radius: 5px;
+    border-width: 15px solid;
+    border-color:white;
+    text-align:center;
+    vertical-align:center;
+}
+
+.document-center
+{
+    padding-bottom: 50px;
+    padding-top: 5px;
+    position: absolute;
+    z-index: 100;
+    margin: auto;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 1000px;
+    height: 700px;
+    background-color: #555;
+    border-radius: 3px;
+    border-width: 5px;
+    text-align:center;
+    vertical-align:center;
+}
+
+.info {
+    margin: 5px;
+}
+
+.patient-info {
+    margin: 5px;
+}
+
+.label {
+    padding: 5px;
+}
+
+.value {
+    padding: 5px;
+    font-weight: bold;
+}
+
+button {
+    padding: 10px;
+}
+
+.patient-list, .documents-list {
+    margin: 5px;    
+}
+
+.field, .header {
+    display:inline-block;
+    width: 200px;
+}
+
+.header {
+    font-weight:bolder;
+}
+
+.row {
+    opacity: 1.0; 
+}
+.row a, span, div {
+    margin:0;
+    padding:0;
+    font-style: none;
+    color:#cfcfcf;
+}
+.row a:hover { 
+    opacity: 0.6; 
+}

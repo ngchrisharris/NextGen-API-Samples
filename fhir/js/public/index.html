@@ -1,0 +1,166 @@
+<html>
+
+<head>
+    <title>FHIR API Sample Application</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <style>
+        form {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #333333;
+            color: #cfcfcf;
+            margin: 5px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .info {
+            margin: 5px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .patient-info {
+            margin: 5px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .label {
+            padding: 5px;
+        }
+
+        .value {
+            padding: 5px;
+            font-weight: bold;
+        }
+
+        button {
+            padding: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>FHIR API Sample Application</h1>
+
+    <form>
+
+        <div class="info">
+            <span class="label">Access Token: </span><span class="value" id="access-token"></span> <br />
+            <span class="label">Person ID: </span><span class="value" id="person-id"></span> <br />
+            <br />
+            <button type="button" id="do-something">My Chart</button>
+        </div>
+
+        <br />
+        <br />
+
+        <div class="patient-info">
+            <div><span class="label">Name:<span><span class = "value" id="patient-name"></span></div>
+            <div><span class="label">Birth Date:<span><span class = "value" id="patient-birthdate"></span></div>
+            <div><span class="label">Gender:<span><span class = "value" id="patient-gender"></span></div>
+            <div><span class="label">Address:<span><span class = "value" id="patient-address"></span></div>
+            <br />
+        </div>
+    </form>
+
+    <div class="redirecting">
+        <p>[ Redirecting to FHIR Login ]</p>
+    </div>
+
+   
+    <script>
+
+        // Application config /////////////////////////////////////////////////////////////////
+        var REDIRECT_URL = "http://localhost:8080";             // Where this application is hosted
+        var CLIENT_ID = "l7d9c27bf17dfb48e5aec7a4054333381b";   // Registered through Portal
+
+        var LOGIN_PROVIDER = "https://fhirapi.nextgen.com:8443/auth/oauth/v2/authorize?" +
+            "response_type=token" +
+            "&prompt=none" +
+            "&client_id=" + CLIENT_ID +
+            "&redirect_uri=" + REDIRECT_URL; 
+
+        // GET params from URL
+        var getUrlParameter = function getUrlParameter(sParam, splitChar) {
+            var sPageURL = decodeURIComponent(window.location.hash.substring(1)),
+                sURLVariables = sPageURL.split('&'),
+                sParameterName,
+                i;
+            for (i = 0; i < sURLVariables.length; i++) {
+                sParameterName = sURLVariables[i].split('=');
+
+                if (sParameterName[0] === sParam) {
+                    return sParameterName[1] === undefined ? true : sParameterName[1];
+                }
+            }
+        };
+
+        // make a request against the API using the client ID and access token
+        function do_request() {
+            console.info("Doing Request");
+            var access_token = sessionStorage.getItem("accessToken");
+            if (!access_token) {
+                console.error("Attemping API call but no access token available, redirecting to login.");
+                redirect_to_login();
+            }
+
+            var requestUrl = "https://fhirapi.nextgen.com:8443/mu3api/dstu2/v1.0/patient/me"
+            $.ajax({
+                url: requestUrl,
+                type: 'GET',
+                dataType: 'json',
+                async: false,
+                success: function (data) {
+                    console.log(data);
+                    $(".patient-info").show();
+                    $("#patient-name").text(data.name[0].family[0] + ", " + data.name[0].given[0]);
+                    $("#patient-birthdate").text(data.birthDate);
+                    $("#patient-gender").text(data.gender);
+                    $("#patient-address").text(data.address[0].line + " " + data.address[0].city + ", " + data.address[0].state + " " + data.address[0].postalCode);
+
+                },
+                error: function () {
+                    alert('Failed');
+                },
+                beforeSend: setHeader
+            });
+
+            function setHeader(xhr) {
+                xhr.setRequestHeader("Authorization", "Bearer " + $("#access-token").text());
+            }
+        }
+
+        $(document).ready(function () {
+            $(".patient-info").hide();
+            $(".info").hide();
+            $(".redirecting").hide();
+            var access_token = getUrlParameter("access_token");
+            if (access_token) {
+                // If access token was in the URL
+                console.info("There's an access token in the GET request, storing in session");
+                sessionStorage.setItem("accessToken", access_token);
+                $("#access-token").text(access_token);
+                $(".info").show();
+            }
+            else if (sessionStorage.getItem("accessToken")) {
+                // Check session storage
+                console.info("Session storage has an access_token");
+                var val = sessionStorage.getItem("accessToken");
+                $("#access-token").text(val);
+                $(".info").show();
+            }
+            else {
+                console.info("No access token found for this session, redirecting to login");
+                redirect_to_login();
+            }
+            $("#do-something").click(do_request);
+        });
+
+        function redirect_to_login() {
+            $(".redirecting").show();
+            top.location.href = LOGIN_PROVIDER;
+        }
+    </script>
+</body>
+</html>

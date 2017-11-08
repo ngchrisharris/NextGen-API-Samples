@@ -1,0 +1,241 @@
+<html>
+
+    <head>
+        <title>MU3 API Gateway Application</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="style.css" />
+</head>
+
+<body>
+    <div class="login-center">
+        <br /><br />
+        <br /><br />
+        <img src="data:image/png;base64,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"/>
+        <br /><br />
+        <h2>NGA Native API<br />Sample Application</h2>
+        <br /><br />
+        <button id="login">LOGIN</button>
+    </div>
+
+    <div class="document-center">
+        <button id="close">CLOSE</button>
+        <div>
+        <iframe id="document-content" width="100%" height="100%" style="border:0;"></iframe>    
+        </div>
+    </div>
+
+    <div id="app">
+        <form>
+            <div class="info">
+                <span class="label">Access Token: </span><span class="value" id="access-token"></span> <br />
+                <span class="label">Person ID: </span><span class="value" id="person-id"></span> <br />
+                <br />
+                <label>Last Name</label><input type="text" value="smith" id="lastName-textbox"/>
+                <label>First Name</label><input type="text" value="" id="firstName-textbox"/> </label> <button type="button" id="search-button">SEARCH</button>
+            </div>
+            <br />
+            <h3>Patients</h3>
+            <div class="patient-list">
+                <div><span class="header">Last Name</span><span class="header">First Name</span><span class="header">Date of Birth</span></div>
+            </div>
+            <br />
+            <h3>Documents</h3>
+            <div class="documents-list">
+                <div><span class="header">Description</span><span class="header">Type</span><span class="header">Created</span></div>
+            </div>
+
+            <div class="patient-info">
+                <div><span class="label">Name:<span><span class = "value" id="patient-name"></span></div>
+                <div><span class="label">Birth Date:<span><span class = "value" id="patient-birthdate"></span></div>
+                <div><span class="label">Gender:<span><span class = "value" id="patient-gender"></span></div>
+                <div><span class="label">Address:<span><span class = "value" id="patient-address"></span></div>
+                <br />
+            </div>
+        </form>
+    </div>
+   
+    <script>
+        function setHeader(xhr) {
+            xhr.setRequestHeader("X-NG-Product", "NGA-Native Sample Application");
+            xhr.setRequestHeader("Authorization", "Bearer " + $("#access-token").text());
+        }
+        function getShortDate(d) {
+            return d.substring(0, d.indexOf('T'));
+        }
+
+
+        // Application config /////////////////////////////////////////////////////////////////
+        var REDIRECT_URL = "http://localhost:8080";             // Where this sample application is hosted
+        var CLIENT_ID = "l78e42bf0e80bf4c6ab8fc6caf383fe888";   // Registered through Portal
+        
+        var API_HOST = "https://nativeapi.nextgen.com:8443";
+        var LOGIN_PROVIDER = API_HOST + "/auth/oauth/v2/authorize?" +
+            "response_type=token" +
+            "&prompt=none" +
+            "&client_id=" + CLIENT_ID +
+            "&redirect_uri=" + REDIRECT_URL; 
+
+        // GET params from URL
+        var getUrlParameter = function getUrlParameter(sParam) {
+            var sPageURL = decodeURIComponent(window.location.hash.substring(1)),
+                sURLVariables = sPageURL.split('&'),
+                sParameterName,
+                i;
+            for (i = 0; i < sURLVariables.length; i++) {
+                sParameterName = sURLVariables[i].split('=');
+
+                if (sParameterName[0] === sParam) {
+                    return sParameterName[1] === undefined ? true : sParameterName[1];
+                }
+            }
+        };
+
+        function getDocumentsForPersonID(personID) {
+            $('#person-id').text(personID);
+            var requestUrl = API_HOST + "/nga-native-api/persons/" + personID + "/chart/documents"; 
+            console.info(requestUrl);
+            $('.documents-list .row').remove();
+            $.ajax({
+                url: requestUrl,
+                type: 'GET',
+                dataType: 'json',
+                async: false,
+                success: function (data) {
+                    console.log(data);
+                    var template = "<div class='row' id='{id}' personID='{personID}'><a href='javascript:;'><span class='field'>{description}</span><span class='field'>{itemType}</span><span class='field'>{created}</span></a></div>";
+                    $.each(data.items, function (key, item) {
+                        console.log(item);
+                        var fragment = 
+                            template
+                                .replace("{id}", item.id)
+                                .replace("{personID}", item.personId)
+                                .replace("{description}", item.description)
+                                .replace("{itemType}", item.itemType)    
+                                .replace("{created}", getShortDate(item.createTimestamp)); 
+                        $(".documents-list").append(fragment);
+                    });
+
+                    $(".documents-list .row").click(function(sender) { 
+                        console.info("Clicked: " + sender.currentTarget.personID);
+                        getDocumentByID($('#person-id').text(), sender.currentTarget.id);
+                    });
+                },
+                error: function () {
+                    alert('Failed');
+                },
+                beforeSend: setHeader
+            });
+        }
+
+        function getDocumentByID(personID, documentID) {
+            var requestUrl = API_HOST + "/nga-native-api/persons/" + personID + "/chart/documents/" + documentID + "/1"; 
+            console.info(requestUrl);
+
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', requestUrl);
+            xhr.onreadystatechange = handler;
+            xhr.responseType = 'blob';
+            setHeader(xhr);
+            xhr.send();
+
+            function handler() {
+                if (this.readyState === this.DONE) {
+                    if (this.status === 200) {
+                        // this.response is a Blob, because we set responseType above
+                        var data_url = URL.createObjectURL(this.response);
+                        document.querySelector('#document-content').src = data_url;
+                        $(".document-center").show();
+                    } else {
+                        console.error('no file :(');
+                    }
+                }
+            }
+        }
+
+        // make a request against the API using the client ID and access token
+        function searchForPerson() {
+            console.info("Doing Request");
+            var access_token = sessionStorage.getItem("accessToken");
+            if (!access_token) {
+                console.error("Attemping API call but no access token available, redirecting to login.");
+                redirect_to_login();
+            }
+
+            $(".patient-list .row").remove();
+            var requestUrl = API_HOST + "/nga-native-api/persons/lookup" 
+                    + "?lastName=" + $('#lastName-textbox').val() 
+                    + "&firstName=" + $('#firstName-textbox').val();
+            console.info(requestUrl);
+            $.ajax({
+                url: requestUrl,
+                type: 'GET',
+                dataType: 'json',
+                async: false,
+                success: function (data) {
+                    console.log(data);
+                    var template = "<div id='{id}' class='row'><a href='javascript:;'><span class='field'>{lastName}</span><span class='field'>{firstName}</span><span class='field'>{dob}</span></a></div>";
+                    $.each(data, function (key, item) {
+                        var fragment = 
+                            template
+                                .replace("{id}", item.id)
+                                .replace("{lastName}", item.lastName)
+                                .replace("{firstName}", item.firstName)    
+                                .replace("{dob}", getShortDate(item.dateOfBirth));
+                        $(".patient-list").append(fragment);
+                    });
+                },
+                error: function () {
+                    alert('Failed');
+                },
+                beforeSend: setHeader
+            });
+            
+            $(".row").click(function(sender) { 
+                console.info("Clicked: " + sender.currentTarget.id);
+                getDocumentsForPersonID(sender.currentTarget.id);
+            });
+        }
+
+        $(document).ready(function () {
+
+            $("#app").hide();
+            $("#login").click(redirect_to_login);
+            $("#close").click(function() { $('.document-center').hide()});
+
+            $(".document-center").hide();
+            $(".login-center").hide();
+            $(".patient-info").hide();
+            $(".info").hide();
+
+            var access_token = getUrlParameter("access_token");
+            if (access_token) {
+                // If access token was in the URL
+                console.info("There's an access token in the GET request, storing in session");
+                sessionStorage.setItem("accessToken", access_token);
+                $("#access-token").text(access_token);
+                $(".login-center").hide();
+                $("#app").show();
+                $(".info").show();
+            }
+            else if (sessionStorage.getItem("accessToken")) {
+                // Check session storage
+                console.info("Session storage has an access_token");
+                var val = sessionStorage.getItem("accessToken");
+                $("#access-token").text(val);
+                $(".login-center").hide();
+                $("#app").show();
+                $(".info").show();
+            }
+            else {
+                console.info("No access token found for this session, redirecting to login");
+                $(".login-center").show();
+            }
+            $("#search-button").click(searchForPerson);
+        });
+
+        function redirect_to_login() {
+            top.location.href = LOGIN_PROVIDER; 
+        }
+    </script>
+</body>
+</html>
